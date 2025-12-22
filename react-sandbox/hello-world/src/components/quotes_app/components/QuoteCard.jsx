@@ -1,4 +1,4 @@
-function RandomQuote({ quote, color, onChangeQuote }) {
+function QuoteCard({ quote, color, onChangeQuote }) {
   return (
     <div>
       <div className="user-profile">
@@ -15,4 +15,4 @@ function RandomQuote({ quote, color, onChangeQuote }) {
   );
 }
 
-export default RandomQuote;
+export default QuoteCard;
