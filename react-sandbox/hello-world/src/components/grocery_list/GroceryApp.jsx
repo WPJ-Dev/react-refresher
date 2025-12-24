@@ -22,11 +22,26 @@ function GroceryApp() {
     setGroceryItems([newGrocery, ...groceryItems]);
     setGroceryInput("");
   }
-  //   const groceries = [
-  //     { id: Date.now(), text: "Bananas", bought: false },
-  //     { id: Date.now(), text: "Apples", bought: false },
-  //     { id: Date.now(), text: "Pear", bought: false },
-  //   ];
+
+  function toggleBought(id) {
+    const updatedItems = groceryItems.map((item) => {
+      if (item.id === id) {
+        console.log(item);
+        return { ...item, bought: !item.bought };
+      }
+      return item;
+    });
+    setGroceryItems(updatedItems);
+  }
+
+  function handleRemoveItem(id) {
+    const updatedItems = groceryItems.filter((item) => item.id !== id);
+    setGroceryItems(updatedItems);
+  }
+
+  const totalItems = groceryItems.length;
+  const totalBought = groceryItems.filter((item) => item.bought).length;
+
   return (
     <div className="container pt-2">
       <GroceryNav />
@@ -35,8 +50,12 @@ function GroceryApp() {
         handleOnSubmit={handleOnSubmit}
         item={groceryInput}
       />
-      <GroceryList items={groceryItems} />
-      <GroceryFooter />
+      <GroceryList
+        items={groceryItems}
+        handleOnToggle={toggleBought}
+        handleRemoveItem={handleRemoveItem}
+      />
+      <GroceryFooter totalBought={totalBought} totalItems={totalItems} />
     </div>
   );
 }

@@ -1,20 +1,33 @@
-function GroceryList({ items }) {
+function GroceryList({ items, handleOnToggle, handleRemoveItem }) {
   return (
     <div>
-      {items.map((items) => (
+      {items.map((item) => (
         <div
-          key={items.id}
+          key={item.id}
           className="card mb-2 p-2 d-flex justify-content-between align-items-center"
         >
-          <div className="d-flex align-items-center">
+          <div
+            className="d-flex align-items-center"
+            style={{ cursor: "pointer" }}
+          >
             <div
               style={{ height: "20px", width: "20px" }}
-              className="rounded-circle me-2 bg-success"
+              className={`rounded-circle me-2 ${
+                item.bought ? "bg-success" : "bg-secondary"
+              }`}
+              onClick={() => handleOnToggle(item.id)}
             ></div>
-            <span>
-              <p className="display-6 pt-2">{items.text}</p>
+            <span
+              className={`${item.bought ? "text-decoration-line-through" : ""}`}
+            >
+              <p className="display-6 pt-2">{item.text}</p>
             </span>
-            <button className="btn btn-danger ms-5">delete</button>
+            <button
+              className="btn btn-danger ms-5"
+              onClick={() => handleRemoveItem(item.id)}
+            >
+              <i className="bi bi-trash"></i>
+            </button>
           </div>
         </div>
       ))}
