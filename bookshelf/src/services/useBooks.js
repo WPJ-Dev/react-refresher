@@ -7,10 +7,12 @@ function useBooks(initialQuery) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchBooksData(query) {
       setIsLoading(true);
       try {
-        const items = await fetchBooks(query);
+        const items = await fetchBooks(query, controller);
         setBooks(items);
       } catch (error) {
         if (error.name !== "AbortError") {
@@ -24,6 +26,8 @@ function useBooks(initialQuery) {
     if (searchTerm) {
       fetchBooksData(searchTerm);
     }
+
+    return () => controller.abort();
   }, [searchTerm]);
 
   return { books, isLoading, setSearchTerm };
