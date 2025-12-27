@@ -2,7 +2,6 @@ const BASE_URL = "https://www.googleapis.com/books/v1";
 
 async function fetchBooks(query) {
   try {
-    console.log(`${BASE_URL}/volumes?q=${query}`);
     const response = await fetch(`${BASE_URL}/volumes?q=${query}`);
     if (!response.ok) {
       throw new Error(`API call failed: ${response.status}`);
@@ -17,4 +16,5 @@ async function fetchBooks(query) {
     }
   }
 }
+
 export default fetchBooks;

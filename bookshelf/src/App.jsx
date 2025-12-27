@@ -1,40 +1,12 @@
-import { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import BookList from "./components/BookList";
-import fetchBooks from "./services/api-client";
+import useBooks from "./services/useBooks";
 
 function App() {
-  //url: https://www.googleapis.com/books/v1/volumes?q=javascript/
-  const [books, setBooks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("CSS");
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    fetchData();
-  }, [searchTerm]);
-
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const items = await fetchBooks(searchTerm);
-      setBooks(items);
-      // console.log(booksJson.items);
-      setIsLoading(false);
-    } catch (error) {
-      if (error.name !== "AbortError") {
-        console.error("Failed to fetch books:", error);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-    // const res = await fetch(
-    //   `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}/`
-    // );
-    // const booksJson = await res.json();
-  };
+  const { books, isLoading, setSearchTerm } = useBooks("fiction");
 
   function handleSearch(searchTerm) {
     setSearchTerm(searchTerm);

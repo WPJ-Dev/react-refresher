@@ -9,7 +9,9 @@ function BookCard({ book }) {
         />
         <div className="card-body">
           <h5 className="card-title">{book.volumeInfo.title}</h5>
-          <p className="card-text">{book.volumeInfo.authors.join(", ")}</p>
+          <p className="card-text">
+            {book.volumeInfo.authors && book.volumeInfo.authors.join(", ")}
+          </p>
           <button className="btn btn-primary">See More</button>
         </div>
       </div>
